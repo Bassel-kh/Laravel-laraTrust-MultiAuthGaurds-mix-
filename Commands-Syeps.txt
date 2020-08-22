@@ -289,3 +289,11 @@ Seeder
                 ...
             ];
             ////////////////// End Info /////////////////////
+    3-
+            $ php artisan db:seed
+
+    4- to seed user
+            create_users value on the laratrust_seeder config file to true
+
+                $ php artisan db:seed
+#5 ---------------------------
