@@ -1,3 +1,13 @@
 #0 -------------------------
 init
 
+#1 ----------------------------
+Laravel 7 redirect different pages users after login. Admin and User login redirect different page
+        $ composer require laravel/ui
+
+        $ php artisan ui bootstrap --auth
+        $ php artisan ui vue --auth
+
+        $ npm install && npm run dev
+
+#2 ----------------------------
