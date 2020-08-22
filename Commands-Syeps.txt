@@ -74,4 +74,15 @@ Install Laratrust
                 LaratrustUserTrait added successfully to App\User
 
          }
+    -----------------------
+    ######################
+    4- Dump the autoloader:
+         $ composer dump-autoload
 
+    5- Run the migrations:
+         $ php artisan migrate
+
+    IMPORTANT
+
+    If you did the steps above you are done with the configuration,
+    if not, please read and follow the whole configuration process
