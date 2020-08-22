@@ -11,3 +11,24 @@ Laravel 7 redirect different pages users after login. Admin and User login redir
         $ npm install && npm run dev
 
 #2 ----------------------------
+    Add Controllers
+    - User
+    - Admin
+
+    $ php artisan make:controller AdminController
+    $ php artisan make:controller UserController
+
+       Add index Methods to controllers :
+            public function index()
+            {
+                return view('View_name');
+            }
+
+    - Create new Two folders in Views:
+            Admin Folder
+            User Folder
+
+            Note: the code in them == code in home page
+
+
+
