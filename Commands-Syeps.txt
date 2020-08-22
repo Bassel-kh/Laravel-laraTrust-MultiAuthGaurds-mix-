@@ -197,3 +197,18 @@ Install Laratrust
 
                         /////////////////////////////////////////////////////////////////
 
+#4 ----------------------------
+Seeder
+    Laratrust comes with a database seeder, this seeder helps you fill the permissions for each role
+    depending on the module, and creates one user for each role.
+
+    [NOTE]
+
+        The seeder is going to work with the first user model inside the user_models array.
+        The seeder doesn't support teams.
+
+    1- To generate the seeder you have to run:
+
+            $ php artisan laratrust:seeder
+            and
+            $ composer dump-autoload
