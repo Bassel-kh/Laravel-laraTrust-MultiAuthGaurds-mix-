@@ -12,6 +12,7 @@
   <component name="ChangeListManager">
     <list default="true" id="f79b293c-8333-4522-a6da-9d58f01106b1" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/Commands-Syeps.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Commands-Syeps.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/seeds/DatabaseSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeds/DatabaseSeeder.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -169,7 +170,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1598113288566</updated>
-      <workItem from="1598113290613" duration="4539000" />
+      <workItem from="1598113290613" duration="4763000" />
     </task>
     <task id="LOCAL-00001" summary="#0 init">
       <created>1598113508091</created>
@@ -227,7 +228,14 @@
       <option name="project" value="LOCAL" />
       <updated>1598124042343</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="#4 Seeder (Steps: 1  )">
+      <created>1598124408597</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1598124408597</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -252,6 +260,7 @@
     <MESSAGE value="#3 Install Laratrust (Steps: 3 )" />
     <MESSAGE value="#3 Install Laratrust (Steps: 4, 5 )" />
     <MESSAGE value="#3 Install Laratrust (Steps: ***** Some Info  )" />
-    <option name="LAST_COMMIT_MESSAGE" value="#3 Install Laratrust (Steps: ***** Some Info  )" />
+    <MESSAGE value="#4 Seeder (Steps: 1  )" />
+    <option name="LAST_COMMIT_MESSAGE" value="#4 Seeder (Steps: 1  )" />
   </component>
 </project>
