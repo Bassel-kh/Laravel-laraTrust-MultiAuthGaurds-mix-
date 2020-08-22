@@ -10,15 +10,7 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f79b293c-8333-4522-a6da-9d58f01106b1" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/Commands-Syeps.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Commands-Syeps.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/bootstrap.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/bootstrap.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/sass/app.scss" beforeDir="false" afterPath="$PROJECT_DIR$/resources/sass/app.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
-    </list>
+    <list default="true" id="f79b293c-8333-4522-a6da-9d58f01106b1" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -145,6 +137,12 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.path.for.package.tslint" value="project" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="nodejs_package_manager_path" value="npm" />
   </component>
   <component name="RunManager">
@@ -161,7 +159,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1598113288566</updated>
-      <workItem from="1598113290613" duration="566000" />
+      <workItem from="1598113290613" duration="1397000" />
     </task>
     <task id="LOCAL-00001" summary="#0 init">
       <created>1598113508091</created>
@@ -170,7 +168,14 @@
       <option name="project" value="LOCAL" />
       <updated>1598113508091</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="#1 Laravel 7 redirect different pages users after login. Admin and User login redirect different page">
+      <created>1598121093705</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1598121093705</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -189,6 +194,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="#0 init" />
-    <option name="LAST_COMMIT_MESSAGE" value="#0 init" />
+    <MESSAGE value="#1 Laravel 7 redirect different pages users after login. Admin and User login redirect different page" />
+    <option name="LAST_COMMIT_MESSAGE" value="#1 Laravel 7 redirect different pages users after login. Admin and User login redirect different page" />
   </component>
 </project>
