@@ -10,7 +10,10 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f79b293c-8333-4522-a6da-9d58f01106b1" name="Default Changelist" comment="" />
+    <list default="true" id="f79b293c-8333-4522-a6da-9d58f01106b1" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Commands-Syeps.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Commands-Syeps.txt" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -167,7 +170,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1598113288566</updated>
-      <workItem from="1598113290613" duration="3156000" />
+      <workItem from="1598113290613" duration="4165000" />
     </task>
     <task id="LOCAL-00001" summary="#0 init">
       <created>1598113508091</created>
@@ -204,7 +207,21 @@
       <option name="project" value="LOCAL" />
       <updated>1598122849595</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="#3 Install Laratrust (Steps: 3 )">
+      <created>1598123027819</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1598123027819</updated>
+    </task>
+    <task id="LOCAL-00007" summary="#3 Install Laratrust (Steps: 4, 5 )">
+      <created>1598123166021</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1598123166021</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -226,6 +243,8 @@
     <MESSAGE value="#1 Laravel 7 redirect different pages users after login. Admin and User login redirect different page" />
     <MESSAGE value="#2 Add Controllers - User - Admin" />
     <MESSAGE value="#3 Install Laratrust (Steps: 1,2)" />
-    <option name="LAST_COMMIT_MESSAGE" value="#3 Install Laratrust (Steps: 1,2)" />
+    <MESSAGE value="#3 Install Laratrust (Steps: 3 )" />
+    <MESSAGE value="#3 Install Laratrust (Steps: 4, 5 )" />
+    <option name="LAST_COMMIT_MESSAGE" value="#3 Install Laratrust (Steps: 4, 5 )" />
   </component>
 </project>
