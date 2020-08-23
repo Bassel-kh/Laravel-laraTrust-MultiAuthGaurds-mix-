@@ -11,8 +11,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f79b293c-8333-4522-a6da-9d58f01106b1" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Commands-Syeps.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Commands-Syeps.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/auth.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/auth.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/seeds/DatabaseSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeds/DatabaseSeeder.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -279,7 +280,14 @@
       <option name="project" value="LOCAL" />
       <updated>1598194496644</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="#9 Define the guards ( Admin , customer , web , api)">
+      <created>1598194858242</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1598194858242</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -312,12 +320,17 @@
     <MESSAGE value="#6 Edit Controller: To user Role Laratrust $ Migrate Admin and Customer ( Steps: 1, 2, 3, 4, 5, 6)" />
     <MESSAGE value="#7 Set up the models ( Steps: 1- Admin model, 2- Customers model )" />
     <MESSAGE value="#8 Edit user_models in config/laratrust.php" />
-    <option name="LAST_COMMIT_MESSAGE" value="#8 Edit user_models in config/laratrust.php" />
+    <MESSAGE value="#9 Define the guards ( Admin , customer , web , api)" />
+    <option name="LAST_COMMIT_MESSAGE" value="#9 Define the guards ( Admin , customer , web , api)" />
   </component>
   <component name="WindowStateProjectService">
     <state x="440" y="70" key="RollbackChangesDialog" timestamp="1598190647223">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
     <state x="440" y="70" key="RollbackChangesDialog/0.0.1366.738@0.0.1366.738" timestamp="1598190647223" />
+    <state x="339" y="165" key="run.anything.popup" timestamp="1598195596972">
+      <screen x="0" y="0" width="1366" height="738" />
+    </state>
+    <state x="339" y="165" key="run.anything.popup/0.0.1366.738@0.0.1366.738" timestamp="1598195596972" />
   </component>
 </project>
