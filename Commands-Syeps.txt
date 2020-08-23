@@ -518,3 +518,15 @@ Set up the models
                  'password', 'remember_token',
              ];
          }
+
+#8 ------------------------------
+
+ #-  Edit user_models in config/laratrust.php
+
+            'user_models' => [
+                'users' => \App\User::class,
+                'admins' => \App\Admin::class,
+                'customers' => \App\Customer::class,
+
+            ],
+

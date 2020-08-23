@@ -74,6 +74,8 @@ return [
     */
     'user_models' => [
         'users' => \App\User::class,
+        'admins' => \App\Admin::class,
+        'customers' => \App\Customer::class,
     ],
 
     /*

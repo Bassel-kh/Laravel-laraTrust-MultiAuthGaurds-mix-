@@ -11,8 +11,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f79b293c-8333-4522-a6da-9d58f01106b1" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Commands-Syeps.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Commands-Syeps.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/laratrust.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/laratrust.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -265,7 +265,14 @@
       <option name="project" value="LOCAL" />
       <updated>1598192947851</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="#7 Set up the models ( Steps: 1- Admin model, 2- Customers model )">
+      <created>1598194359555</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1598194359555</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -296,7 +303,8 @@
     <MESSAGE value="#4 Seeder (Steps: 3 , 4  )" />
     <MESSAGE value="#5 Administration Panel (#How to use it Steps: 1 , 2  )" />
     <MESSAGE value="#6 Edit Controller: To user Role Laratrust $ Migrate Admin and Customer ( Steps: 1, 2, 3, 4, 5, 6)" />
-    <option name="LAST_COMMIT_MESSAGE" value="#6 Edit Controller: To user Role Laratrust $ Migrate Admin and Customer ( Steps: 1, 2, 3, 4, 5, 6)" />
+    <MESSAGE value="#7 Set up the models ( Steps: 1- Admin model, 2- Customers model )" />
+    <option name="LAST_COMMIT_MESSAGE" value="#7 Set up the models ( Steps: 1- Admin model, 2- Customers model )" />
   </component>
   <component name="WindowStateProjectService">
     <state x="440" y="70" key="RollbackChangesDialog" timestamp="1598190647223">
