@@ -529,4 +529,55 @@ Set up the models
                 'customers' => \App\Customer::class,
 
             ],
+#9 ------------------------------
+Define the guards
+    Laravel guards define how users are authenticated for each request.
+    Laravel comes with some guards for authentication,
+    but we can also create ours as well. This will enable us to use Laravel’s default authentication
+    system with our Admin and Customer models as well.
+
+    Open config/auth.php and add the new guards edit as follows:
+    // config/auth.php
+
+        <?php
+
+        [...]
+        'guards' => [
+            [...]
+            'admin' => [
+                'driver' => 'session',
+                'provider' => 'admins',
+            ],
+            'customer' => [
+                'driver' => 'session',
+                'provider' => 'customers',
+            ],
+        ],
+        [...]
+
+        We added two new guards admin and customer and set their providers. These providers tell Laravel what to use
+        for authentication or validation when we try to use the guard.
+
+        Now, add the following to the providers array:
+
+         // config/auth.php
+
+            [...]
+            'providers' => [
+                [...]
+                'admins' => [
+                    'driver' => 'eloquent',
+                    'model' => App\Admin::class,
+                ],
+                'customers' => [
+                    'driver' => 'eloquent',
+                    'model' => App\Customer::class,
+                ],
+            ],
+            [...]
+         Now, we have set up the providers we defined along with the guards above. We set the driver to be
+         eloquent since we are using Eloquent ORM as our database manager.
+
+         Let’s say we wish to use another ORM like RedBeanPHP for managing our database, we can then set the driver
+         to say redbeanphp instead of eloquent. For the model, we pass the model we want that provider to use.
 
