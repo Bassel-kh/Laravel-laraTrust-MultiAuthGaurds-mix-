@@ -345,7 +345,7 @@ Administration Panel
            If you want to change or customize them, go to your
 
             {   config/laratrust.php and set the middleware.register value to false }
-            
+
             and add the following to the routeMiddleware array in { app/Http/Kernel.php }:
 
                'role' => \Laratrust\Middleware\LaratrustRole::class,
@@ -413,3 +413,108 @@ Administration Panel
                  $ php artisan migrate
 
 
+#7 --------------------------
+Set up the models
+    [Note]: {
+        Add to all Models this line To user laratrust:
+
+        <?php
+
+        use Laratrust\Traits\LaratrustUserTrait;
+
+        class User extends Model
+        {
+            use LaratrustUserTrait; // add this trait to your user model
+
+            ...
+        }
+
+        This class uses the LaratrustUserTrait to enable the relationships with Role and Permission.
+        It also adds the following methods roles(), hasRole($name), hasPermission($permission), isAbleTo($permission),
+        ability($roles, $permissions, $options), and rolesTeams() to the model.
+    }
+
+    We have different classes of users for our application, and they use different database tables.
+    To use these different tables for authentication, we have to define models for them.
+    These models will be like the user model and extends the Authenticable class.
+
+    1- *****Admin model
+        To make the model for the admins, run the following command:
+
+            $ php artisan make:model Admin
+
+        Open the Admin model in app/Admin.php and add the following:
+
+            // app/Admin.php
+            <?php
+
+            namespace App;
+
+            use Illuminate\Notifications\Notifiable;
+            use Illuminate\Foundation\Auth\User as Authenticatable;
+            //////////////////////////
+            use Laratrust\Traits\LaratrustUserTrait; // To Use LaraTrust
+            /////////////////////////
+            class Admin extends Authenticatable
+            {
+                use Notifiable;
+                use LaratrustUserTrait; // LaraTrust
+
+                protected $guard = 'admin';
+
+                protected $fillable = [
+                    'name', 'email', 'password',
+                ];
+
+                protected $hidden = [
+                    'password', 'remember_token',
+                ];
+            }
+
+            When you intend to use a model for authentication, and you plan to not use the default user guard,
+
+            it is important you specify the guard it will use. In our case, it will use the admin guard.
+
+            We also defined some of our database columns as fillable by putting them in the fillable array. This tells Laravel the following about the model:
+
+            When I call your create or update method and I pass you an array, take only these items (read: items in the fillable array).
+
+            This way, we will prevent a scenario where a user can bypass any of our checks and insert or update a record we do not wish for them to update.
+
+            For the hidden array, we tell Laravel not to return those columns when we return the model to either our API or view.
+
+
+    2- *****Customers model
+
+     To make the model for the customers, run the following command:
+
+         $ php artisan make:model Customer
+     Then open the Customer model and replace with the following:
+
+         // app/Customer.php
+         <?php
+
+         namespace App;
+
+         use Illuminate\Notifications\Notifiable;
+         use Illuminate\Foundation\Auth\User as Authenticatable;
+         //////////////////////////
+         use Laratrust\Traits\LaratrustUserTrait; // To Use LaraTrust
+         /////////////////////////
+
+         class Customer extends Authenticatable
+         {
+             use Notifiable;
+             use LaratrustUserTrait; // LaraTrust
+
+
+             protected $guard = 'customer';
+
+             protected $fillable = [
+                 'name', 'email', 'password',
+             ];
+
+             protected $hidden = [
+                 'password', 'remember_token',
+             ];
+         }
