@@ -1,0 +1,825 @@
+HOW TO USE MULTIPLE AUTHENTICATION GUARDS IN A LARAVEL APP
+
+August 22nd, 2018
+You will need PHP 7+, Laravel 5.6+, Composer and Laravel installer. Some knowledge of PHP and Laravel will be helpful.
+If you have used Laravel for a while, you should have heard a lot about multiple authentications. You should have also heard “guards” a whole lot. But if you are fairly new to Laravel, multiple authentications makes it possible for you to have different classes of users access different/similar parts of the same application.
+
+There are many reasons why you may want to use multiple authentications in your Laravel application. For example, you have a large application that runs an entire company. Customers also interact with the product and services of the company through the same application. The application also has a blog and there is a department in the company responsible for handling the blog.
+
+We can see from the application above that there are already three sets of users. For customers, we can have them use a certain authentication process to access the system. For customersrs, they could have a totally different authentication process and even have roles to enable a more robust content management process. For the rest of the company, you can have different roles representing different functions.
+
+Now, let us look at how to create multiple authentications for our different class of users.
+
+Prerequisites
+Knowledge of PHP (version >= 7.1.3).
+Knowledge of Laravel (version 5.6.x).
+Composer is installed on your computer (version >= 1.3.2).
+Laravel installer is installed on your computer.
+
+Getting started
+If you checked off all the items on the prerequisites list, then this tutorial is already looking solid for you. We will create a Laravel app that has three user classes — admin, customer, user. We will make guards for the three user classes and restrict different parts of our application based on those guards.
+
+Create the application
+We need to create a new Laravel application. Run the following command on your terminal to create a new Laravel application:
+
+    $ laravel new multi-auth
+    $ cd multi-auth
+    You will need PHP 7+, Laravel 5.6+, Composer and Laravel installer. Some knowledge of PHP and Laravel will be helpful.
+    If you have used Laravel for a while, you should have heard a lot about multiple authentications. You should have also heard “guards” a whole lot. But if you are fairly new to Laravel, multiple authentications makes it possible for you to have different classes of users access different/similar parts of the same application.
+
+    There are many reasons why you may want to use multiple authentications in your Laravel application. For example, you have a large application that runs an entire company. Customers also interact with the product and services of the company through the same application. The application also has a blog and there is a department in the company responsible for handling the blog.
+
+    We can see from the application above that there are already three sets of users. For customers, we can have them use a certain authentication process to access the system. For customerss, they could have a totally different authentication process and even have roles to enable a more robust content management process. For the rest of the company, you can have different roles representing different functions.
+
+    Now, let us look at how to create multiple authentications for our different class of users.
+
+    Prerequisites
+    Knowledge of PHP (version >= 7.1.3).
+    Knowledge of Laravel (version 5.6.x).
+    Composer is installed on your computer (version >= 1.3.2).
+    Laravel installer is installed on your computer.
+    Getting started
+    If you checked off all the items on the prerequisites list, then this tutorial is already looking solid for you.
+    We will create a Laravel app that has three user classes — admin, customer, user.
+    We will make guards for the three user classes and restrict different parts of our application based on those guards.
+
+    Create the application
+    We need to create a new Laravel application. Run the following command on your terminal to create a new Laravel application:
+
+        $ laravel new multi-auth
+        $ cd multi-auth
+
+*****Create the database
+    We will use SQLite database for our application. It is lightweight, fast and uses a simple flat file.
+     Create a database file with the following command:
+
+        $ touch database/database.sqlite
+    Open the .env file in your application directory and change the following section:
+
+        DB_CONNECTION=mysql
+        DB_HOST=127.0.0.1
+        DB_PORT=3306
+        DB_DATABASE=homestead
+        DB_USERNAME=homestead
+        DB_PASSWORD=secret
+    To:
+
+        DB_CONNECTION=/absolute/path/to/database.sqlite
+    This will ensure our application uses the SQLite driver for database connections.
+
+#1 --------------------------
+Creating migrations
+We will make migrations for the admins and customers tables as Laravel comes with a users migration.
+They will be as simple as the users table, but you can extend them further based on your specific needs.
+
+*****Create migration for admins
+    To make the admins table, run the following command:
+
+        $ php artisan make:migration create_admins_table
+    From the database/migrations directory, open the admins migrations file and edit it as follows:
+    // database/migrations/<timestamp>_create_admins_table.php
+
+        [...]
+        public function up()
+        {
+            Schema::create('admins', function (Blueprint $table) {
+                $table->increments('id');
+                $table->string('name');
+                $table->string('email')->unique();
+                $table->string('password');
+                $table->boolean('is_super')->default(false);
+                $table->rememberToken();
+                $table->timestamps();
+            });
+        }
+        [...]
+    We have created a simple migration and defined the columns we want the admin table to have.
+    Eloquent provides methods that represent datatypes of our database table. We use them to define
+    the datatypes of our table columns.
+
+*****Create migration for customers
+     To make the customers table, run the following command:
+
+         $ php artisan make:migration create_customers_table
+     Now, open the customers migrations file and edit it as follows:
+
+         database/migrations/<timestamp>_create_customers_table.php
+         [...]
+         public function up()
+         {
+             Schema::create('customers', function (Blueprint $table) {
+                 $table->increments('id');
+                 $table->string('name');
+                 $table->string('email')->unique();
+                 $table->string('password');
+                 $table->boolean('is_editor')->default(false);
+                 $table->rememberToken();
+                 $table->timestamps();
+             });
+         }
+         [...]
+     We just created a simple migration and defined the columns we want the customers table to have.
+     Eloquent provides methods that represent datatypes of our database table, so it is easy to decide what
+     we want each one to be.
+
+*****Migrate the database
+     Now that we have defined our tables, let us migrate the database:
+
+         $ php artisan migrate
+
+#2 --------------------------
+Set up the models
+
+    We have different classes of users for our application, and they use different database tables.
+    To use these different tables for authentication, we have to define models for them.
+    These models will be like the user model and extends the Authenticable class.
+
+*****Admin model
+    To make the model for the admins, run the following command:
+
+        $ php artisan make:model Admin
+
+    Open the Admin model in app/Admin.php and add the following:
+
+        // app/Admin.php
+        <?php
+
+        namespace App;
+
+        use Illuminate\Notifications\Notifiable;
+        use Illuminate\Foundation\Auth\User as Authenticatable;
+
+        class Admin extends Authenticatable
+        {
+            use Notifiable;
+
+            protected $guard = 'admin';
+
+            protected $fillable = [
+                'name', 'email', 'password',
+            ];
+
+            protected $hidden = [
+                'password', 'remember_token',
+            ];
+        }
+
+        When you intend to use a model for authentication, and you plan to not use the default user guard, it is important you specify the guard it will use. In our case, it will use the admin guard.
+
+        We also defined some of our database columns as fillable by putting them in the fillable array. This tells Laravel the following about the model:
+
+        When I call your create or update method and I pass you an array, take only these items (read: items in the fillable array).
+
+        This way, we will prevent a scenario where a user can bypass any of our checks and insert or update a record we do not wish for them to update.
+
+        For the hidden array, we tell Laravel not to return those columns when we return the model to either our API or view.
+
+*****Customerss model
+     To make the model for the customers, run the following command:
+
+         $ php artisan make:model Customer
+     Then open the Customer model and replace with the following:
+
+         // app/Customer.php
+         <?php
+
+         namespace App;
+
+         use Illuminate\Notifications\Notifiable;
+         use Illuminate\Foundation\Auth\User as Authenticatable;
+
+         class Customer extends Authenticatable
+         {
+             use Notifiable;
+
+             protected $guard = 'customer';
+
+             protected $fillable = [
+                 'name', 'email', 'password',
+             ];
+
+             protected $hidden = [
+                 'password', 'remember_token',
+             ];
+         }
+
+#3 --------------------------
+Define the guards
+    Laravel guards define how users are authenticated for each request.
+    Laravel comes with some guards for authentication,
+    but we can also create ours as well. This will enable us to use Laravel’s default authentication
+    system with our Admin and Customer models as well.
+
+    Open config/auth.php and add the new guards edit as follows:
+    // config/auth.php
+
+        <?php
+
+        [...]
+        'guards' => [
+            [...]
+            'admin' => [
+                'driver' => 'session',
+                'provider' => 'admins',
+            ],
+            'customer' => [
+                'driver' => 'session',
+                'provider' => 'customers',
+            ],
+        ],
+        [...]
+
+        We added two new guards admin and customer and set their providers. These providers tell Laravel what to use
+        for authentication or validation when we try to use the guard.
+
+        Now, add the following to the providers array:
+
+         // config/auth.php
+
+            [...]
+            'providers' => [
+                [...]
+                'admins' => [
+                    'driver' => 'eloquent',
+                    'model' => App\Admin::class,
+                ],
+                'customers' => [
+                    'driver' => 'eloquent',
+                    'model' => App\Customer::class,
+                ],
+            ],
+            [...]
+         Now, we have set up the providers we defined along with the guards above. We set the driver to be
+         eloquent since we are using Eloquent ORM as our database manager.
+
+         Let’s say we wish to use another ORM like RedBeanPHP for managing our database, we can then set the driver
+         to say redbeanphp instead of eloquent. For the model, we pass the model we want that provider to use.
+
+#4 --------------------------
+Set up the controllers
+    To use our guards for authentication, we can either modify the existing authentication controllers or create new ones.
+    You can choose which to use based on your specific needs.
+    In this tutorial, we will modify these controllers.
+    inite default controllers:
+     {
+        Laravel UI
+        Laravel UI is a new first-party package that extracts the UI portion of a Laravel project into a separate laravel/ui package.
+        The separate package enables the Laravel team to iterate on the UI package separately from the main Laravel codebase.
+
+        You can install the laravel/ui package via composer using the following command:
+
+            $ composer require laravel/ui
+
+        Once you’ve installed laravel/ui you have a couple of commands available to generate UI code, including authorization.
+
+        If you intend to use Vue, React, or Bootstrap, the UI package provides the following command:
+
+            $ php artisan ui --help
+
+           $ php artisan ui bootstrap --auth
+           $ php artisan ui react --auth
+           $ php artisan ui vue --auth
+
+           Please run "npm install && npm run dev" to compile your fresh scaffolding
+     }
+
+*****Modify LoginController
+     Open the LoginController in app/Http/Controllers/Auth and edit as follows:
+
+         // app/Http/Controllers/Auth/LoginController.php
+
+         <?php
+
+         namespace App\Http\Controllers\Auth;
+
+         use App\Http\Controllers\Controller;
+         use Illuminate\Foundation\Auth\AuthenticatesUsers;
+         [...]
+         use Illuminate\Http\Request;
+         use Auth;
+         [...]
+         class LoginController extends Controller
+         {
+             [...]
+             public function __construct()
+             {
+                 $this->middleware('guest')->except('logout');
+                 $this->middleware('guest:admin')->except('logout');
+                 $this->middleware('guest:customer')->except('logout');
+             }
+             [...]
+         }
+    We set the middleware to restrict access to this controller or its methods. It is important we defined all the different types of guests in the controller. This way, if one type of user is logged in and you try to use another user type to log in, it will redirect you to a predefined authentication page.
+
+    See it this way: If I log in on my computer as an administrator, and my colleague who is a customer also tries to log into his account as a customer, he will not be able to.
+
+    This check is important, so we do not mess up session information and potentially corrupt our application data.
+    ------------------------------------
+    Now, define the login for admins:
+    // app/Http/Controllers/Auth/LoginController.php
+
+        [...]
+        public function showAdminLoginForm()
+        {
+            return view('auth.login', ['url' => 'admin']);
+        }
+
+        public function adminLogin(Request $request)
+        {
+            $this->validate($request, [
+                'email'   => 'required|email',
+                'password' => 'required|min:6'
+            ]);
+
+            if (Auth::guard('admin')->attempt(['email' => $request->email, 'password' => $request->password], $request->get('remember'))) {
+
+                return redirect()->intended('/admin');
+            }
+            return back()->withInput($request->only('email', 'remember'));
+        }
+        [...]
+
+        We have set up a method to return the login page for an admin. We will use the same page for all the user types and only change the URL they get sent to. Saves us a lot of code we could avoid writing.
+
+        We also defined the adminLogin method which checks that the right credentials are supplied. Then we attempt to log a user in with the admin guard. It is important we set this guard when attempting a login so that the Auth facade will check the right table matching credentials. It will also set up our authentication so we can restrict pages based on the type of user who is logged in.
+
+        We redirect an authenticated user to a specific URL and send an unauthenticated user back to the login page.
+
+    ------------------------------------
+
+        Now, let us do the same thing but for the customers:
+
+            // app/Http/Controllers/Auth/LoginController.php
+
+
+            [...]
+            public function showCustomerLoginForm()
+            {
+                return view('auth.login', ['url' => 'customer']);
+            }
+
+            public function customerLogin(Request $request)
+            {
+                $this->validate($request, [
+                    'email'   => 'required|email',
+                    'password' => 'required|min:6'
+                ]);
+
+                if (Auth::guard('customer')->attempt(['email' => $request->email, 'password' => $request->password], $request->get('remember'))) {
+
+                    return redirect()->intended('/customer');
+                }
+                return back()->withInput($request->only('email', 'remember'));
+            }
+            [...]
+        And our login is set. Hurray!!!
+    ---------------------------------------------
+*****Modify RegisterController
+     Open the RegisterController and edit as follows:
+     // app/Http/Controllers/Auth/RegisterController.php
+
+         <?php
+         [...]
+         namespace App\Http\Controllers\Auth;
+         use App\User;
+         use App\Admin;
+         use App\Customer;
+         use App\Http\Controllers\Controller;
+         use Illuminate\Support\Facades\Hash;
+         use Illuminate\Support\Facades\Validator;
+         use Illuminate\Foundation\Auth\RegistersUsers;
+         use Illuminate\Http\Request;
+         [...]
+         class RegisterController extends Controller
+         {
+             [...]
+             public function __construct()
+             {
+                 $this->middleware('guest');
+                 $this->middleware('guest:admin');
+                 $this->middleware('guest:customer');
+             }
+           [...]
+         }
+
+     We have set up the middleware the controller will use, just like we did with the LoginController.
+
+     Now, let us set up the methods to return the registration pages for the different users:
+     // app/Http/Controllers/Auth/RegisterController.php
+
+         [...]
+         public function showAdminRegisterForm()
+         {
+             return view('auth.register', ['url' => 'admin']);
+         }
+
+         public function showCustomerRegisterForm()
+         {
+             return view('auth.register', ['url' => 'customer']);
+         }
+         [...]
+
+
+     This is similar to what we did for showing different login pages.
+
+     ##############################
+
+     Now, we can define our methods for creating an admin:
+
+         // app/Http/Controllers/Auth/RegisterController.php
+
+         [...]
+         protected function createAdmin(Request $request)
+         {
+             $this->validator($request->all())->validate();
+             $admin = Admin::create([
+                 'name' => $request['name'],
+                 'email' => $request['email'],
+                 'password' => Hash::make($request['password']),
+             ]);
+             return redirect()->intended('login/admin');
+         }
+         [...]
+
+         ##################################
+
+         Next, let us define methods for creating a customer:
+
+             // app/Http/Controllers/Auth/RegisterController.php
+
+             [...]
+             protected function createCustomer(Request $request)
+             {
+                 $this->validator($request->all())->validate();
+                 $customer = Customer::create([
+                     'name' => $request['name'],
+                     'email' => $request['email'],
+                     'password' => Hash::make($request['password']),
+                 ]);
+                 return redirect()->intended('login/customer');
+             }
+             [...]
+         And registration is complete.
+
+#5 --------------------------
+Set up authentication pages
+    We will use Laravel’s auth scaffolding to generate pages and controllers for our authentication system. Run the following command to generate the authentication pages:
+
+            For Laravel < 6
+                $ php artisan make:auth
+
+            For Laravel >=6
+                $ composer require laravel/ui
+                $ php artisan ui vue --auth or react or bootstrap
+                $ php artisan migrate
+
+    This will generate view files in resources/views/auth along with routes to handle basic authentication for our application. Is that cool or what?
+
+    Open the login.blade.php file and edit as follows:
+
+        // resources/views/auth/login.blade.php
+            [...]
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-md-8">
+                        <div class="card">
+                            <div class="card-header"> {{ isset($url) ? ucwords($url) : ""}} {{ __('Login') }}</div>
+
+                            <div class="card-body">
+                                @isset($url)
+                                <form method="POST" action='{{ url("login/$url") }}' aria-label="{{ __('Login') }}">
+                                @else
+                                <form method="POST" action="{{ route('login') }}" aria-label="{{ __('Login') }}">
+                                @endisset
+                                    @csrf
+                [...]
+            </div>
+
+    *************************************
+
+    We are checking if we passed a url parameter to the page when we called it.
+    If we did, we modify the forms action to use the url parameter. We also modified the header of the form so that it
+    shows the type of user based on their login parameter.
+
+    Open the register.blade.php file and edit as follows:
+
+        // resources/views/auth/register.blade.php
+
+        [...]
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-8">
+                    <div class="card">
+                        <div class="card-header"> {{ isset($url) ? ucwords($url) : ""}} {{ __('Register') }}</div>
+
+                        <div class="card-body">
+                            @isset($url)
+                            <form method="POST" action='{{ url("register/$url") }}' aria-label="{{ __('Register') }}">
+                            @else
+                            <form method="POST" action="{{ route('register') }}" aria-label="{{ __('Register') }}">
+                            @endisset
+                                @csrf
+            [...]
+        </div>
+    We replicated what we did for login page here
+
+
+
+#6--------------------------
+Create the pages authenticated users will access
+
+    Now that we are done setting up the login and register page, let us make the pages the admin and customers will see when they are authenticated. Open the terminal and run the following commands to create new files. Next, we will insert the corresponding code snippets to the files.
+
+        $ touch resources/views/layouts/auth.blade.php
+        $ touch resources/views/admin.blade.php
+        $ touch resources/views/customer.blade.php
+        $ touch resources/views/home.blade.php
+
+        $ echo > resources/views/layouts/auth.blade.php
+        $ echo > resources/views/admin.blade.php
+        $ echo > resources/views/customer.blade.php
+        $ echo > resources/views/home.blade.php
+
+        Insert this code block into the auth.blade.php file:
+
+            // resources/views/layouts/auth.blade.php
+
+            <!DOCTYPE html>
+            <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+            <head>
+                <meta charset="utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1">
+
+                <!-- CSRF Token -->
+                <meta name="csrf-token" content="{{ csrf_token() }}">
+
+                <title>{{ config('app.name', 'Laravel') }}</title>
+
+                <!-- Scripts -->
+                <script src="{{ asset('js/app.js') }}" defer></script>
+
+                <!-- Fonts -->
+                <link rel="dns-prefetch" href="https://fonts.gstatic.com">
+                <link href="https://fonts.googleapis.com/css?family=Raleway:300,400,600" rel="stylesheet" type="text/css">
+
+                <!-- Styles -->
+                <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+            </head>
+            <body>
+                <div id="app">
+                    <nav class="navbar navbar-expand-md navbar-light navbar-laravel">
+                        <div class="container">
+                            <a class="navbar-brand" href="{{ url('/') }}">
+                                {{ config('app.name', 'Laravel') }}
+                            </a>
+                            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
+                                <span class="navbar-toggler-icon"></span>
+                            </button>
+
+                            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                                <!-- Left Side Of Navbar -->
+                                <ul class="navbar-nav mr-auto">
+
+                                </ul>
+
+                                <!-- Right Side Of Navbar -->
+                                <ul class="navbar-nav ml-auto">
+                                    <!-- Authentication Links -->
+                                   <li class="nav-item dropdown">
+                                        <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                            Hi There <span class="caret"></span>
+                                        </a>
+
+                                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                            <a class="dropdown-item" href="{{ route('logout') }}"
+                                               onclick="event.preventDefault();
+                                                             document.getElementById('logout-form').submit();">
+                                                {{ __('Logout') }}
+                                            </a>
+
+                                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                                @csrf
+                                            </form>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </nav>
+
+                    <main class="py-4">
+                        @yield('content')
+                    </main>
+                </div>
+            </body>
+            </html>
+
+    **************************************
+
+    Next, insert this code block into the admin.blade.php file:
+
+        // resources/views/admin.blade.php
+
+        @extends('layouts.auth')
+
+        @section('content')
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-8">
+                    <div class="card">
+                        <div class="card-header">Dashboard</div>
+
+                        <div class="card-body">
+                            Hi boss!
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @endsection
+
+    #################################
+
+    Open the customer.blade.php file and edit as follows:
+
+        // resources/views/customer.blade.php
+
+        @extends('layouts.auth')
+
+        @section('content')
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-8">
+                    <div class="card">
+                        <div class="card-header">Dashboard</div>
+
+                        <div class="card-body">
+                            Hi there, awesome customer
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @endsection
+
+       #######################################
+
+       Finally, open the home.blade.php file and replace with the following:
+
+           // resources/views/home.blade.php
+
+           @extends('layouts.auth')
+
+           @section('content')
+           <div class="container">
+               <div class="row justify-content-center">
+                   <div class="col-md-8">
+                       <div class="card">
+                           <div class="card-header">Dashboard</div>
+
+                           <div class="card-body">
+                                Hi there, regular user
+                           </div>
+                       </div>
+                   </div>
+               </div>
+           </div>
+           @endsection
+
+
+
+#7--------------------------
+Set up the routes
+
+    Our application is almost ready. Let us define the routes to access all the pages we have created so far.
+    Open the routes/web.php file and replace with the following:
+
+    // routes/web.php
+
+
+        <?php
+        Route::view('/', 'welcome');
+        Auth::routes();
+
+        Route::get('/login/admin', 'Auth\LoginController@showAdminLoginForm');
+        Route::get('/login/customer', 'Auth\LoginController@showCustomerLoginForm');
+        Route::get('/register/admin', 'Auth\RegisterController@showAdminRegisterForm');
+        Route::get('/register/customer', 'Auth\RegisterController@showCustomerRegisterForm');
+
+        Route::post('/login/admin', 'Auth\LoginController@adminLogin');
+        Route::post('/login/customer', 'Auth\LoginController@CustomerLogin');
+        Route::post('/register/admin', 'Auth\RegisterController@createAdmin');
+        Route::post('/register/customer', 'Auth\RegisterController@createCustomer');
+
+        Route::view('/home', 'home')->middleware('auth');
+        Route::view('/admin', 'admin');
+        Route::view('/customer', 'customer');
+
+#8--------------------------
+Modify how our users are redirected if authenticated
+
+    It is important you modify how users are redirected when they are authenticated.
+    Laravel by default redirects all authenticated users to /home.
+    We will get the error below if we do not modify the redirection.
+
+    So, to solve that, open the app/Http/Controllers/Middleware/RedirectIfAuthenticated.php
+    file and replace with this:
+
+        // app/Http/Controllers/Middleware/RedirectIfAuthenticated.php
+
+            <?php
+
+            namespace App\Http\Middleware;
+
+            use Closure;
+            use Illuminate\Support\Facades\Auth;
+
+            class RedirectIfAuthenticated
+            {
+                public function handle($request, Closure $next, $guard = null)
+                {
+                    if ($guard == "admin" && Auth::guard($guard)->check()) {
+                        return redirect('/admin');
+                    }
+                    if ($guard == "customer" && Auth::guard($guard)->check()) {
+                        return redirect('/customer');
+                    }
+                    if (Auth::guard($guard)->check()) {
+                        return redirect('/home');
+                    }
+
+                    return $next($request);
+                }
+            }
+
+            The RedirectIfAuthenticated middleware receives the auth guard as a parameter.
+            This middleware is triggered when we try to visit any page meant for authenticated users.
+            We can then determine the type of authentication the user has and redirect them accordingly.
+
+
+
+#9--------------------------
+Modify authentication exception handler
+
+    There is a little annoying thing that would happen when a user is redirected.
+    You would expect that if a user tries to access say /customer but is not authenticated, t
+    hat the user is redirected to /login/customer, yes? Well, they don’t. They get redirected
+    to /login which is not what we want.
+
+    To ensure that when a user tries to visit /customer they are redirected to /login/customer or
+    the same for /admin, we have to modify the exception handler. Open the handler file in app/Exceptions
+    and add the following:
+
+        // app/Exceptions/Handler.php
+
+            <?php
+
+            namespace App\Exceptions;
+
+            use Exception;
+            use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+            [...]
+            use Illuminate\Auth\AuthenticationException;
+            use Auth;
+            [...]
+            class Handler extends ExceptionHandler
+            {
+               [...]
+                protected function unauthenticated($request, AuthenticationException $exception)
+                {
+                    if ($request->expectsJson()) {
+                        return response()->json(['error' => 'Unauthenticated.'], 401);
+                    }
+                    if ($request->is('admin') || $request->is('admin/*')) {
+                        return redirect()->guest('/login/admin');
+                    }
+                    if ($request->is('customer') || $request->is('customer/*')) {
+                        return redirect()->guest('/login/customer');
+                    }
+                    return redirect()->guest(route('login'));
+                }
+            }
+
+            The unauthenticated method we just added resolves this issue we have. It receives an AuthenticationExpection exception by
+
+            default which carries that guard information. Sadly, we cannot access that, because it is protected
+
+            (hopefully, Laravel 5.7 will come with a way to access it).
+
+            Our workaround is to use request→is(). This checks the URL we are trying to access. It can also check the URL pattern
+
+            if we do not have an absolute URL or if we have a route group.
+
+            In our case, we first check if we received a JSON request and handle the exception separately.
+
+            Then we check if we are trying to access /admin or any URL preceded by admin. We redirect the user to
+
+            the appropriate login page. We also do the check for customer as well.
+
+            This is a good workaround for us, but it means we must know the absolute URL we want to access,
+
+            or at least have the same prefix for all routes that will be protected by our guard.
+
+#10--------------------------
+

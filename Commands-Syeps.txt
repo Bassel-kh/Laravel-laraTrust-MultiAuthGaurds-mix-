@@ -316,3 +316,100 @@ Administration Panel
 
             To customize the the URL and other available settings in the panel please
             go to the panel section in the config/laratrust.php file.
+
+/////////////////////////////////////////////////////////////////////////////////////////////////
+                                 Add Middleware and Guards Auth
+/////////////////////////////////////////////////////////////////////////////////////////////////
+
+#6 --------------------------------
+    Edit Controller: To user Role Laratrust $ Migrate Admin and Customer
+
+        1- Add to Admin Controller:
+
+                public function __construct()
+                {
+                    $this->middleware('role:superadministrator');
+                }
+
+        2- Add to User Controller:
+
+                    public function __construct()
+                    {
+                        $this->middleware('role:user');
+
+                    }
+
+        3- Middleware for LaraTrust
+           #Configuration
+           The middleware are registered automatically as role, permission and ability .
+           If you want to change or customize them, go to your
+
+            {   config/laratrust.php and set the middleware.register value to false }
+            
+            and add the following to the routeMiddleware array in { app/Http/Kernel.php }:
+
+               'role' => \Laratrust\Middleware\LaratrustRole::class,
+               'permission' => \Laratrust\Middleware\LaratrustPermission::class,
+               'ability' => \Laratrust\Middleware\LaratrustAbility::class,
+
+        4- *****Create migration for admins
+               To make the admins table, run the following command:
+
+                   $ php artisan make:migration create_admins_table
+
+               From the database/migrations directory, open the admins migrations file and edit it as follows:
+               // database/migrations/<timestamp>_create_admins_table.php
+
+                   [...]
+                   public function up()
+                       {
+                           Schema::create('admins', function (Blueprint $table) {
+                               $table->id();
+                               $table->string('name');
+                               $table->string('email')->unique();
+                               $table->timestamp('email_verified_at')->nullable();
+                               $table->string('password');
+                               $table->boolean('is_super')->default(false);
+                               $table->rememberToken();
+                               $table->timestamps();
+                           });
+                       }
+                   [...]
+
+               We have created a simple migration and defined the columns we want the admin table to have.
+               Eloquent provides methods that represent datatypes of our database table. We use them to define
+               the datatypes of our table columns.
+
+        5- *****Create migration for customers
+                To make the customers table, run the following command:
+
+                    $ php artisan make:migration create_customers_table
+                Now, open the customers migrations file and edit it as follows:
+
+                    database/migrations/<timestamp>_create_customers_table.php
+                    [...]
+                    public function up()
+                    {
+                        Schema::create('customers', function (Blueprint $table) {
+                            $table->increments('id');
+                            $table->string('name');
+                            $table->string('email')->unique();
+                            $table->timestamp('email_verified_at')->nullable();
+                            $table->string('password');
+                            $table->boolean('is_editor')->default(false);
+                            $table->rememberToken();
+                            $table->timestamps();
+
+                        });
+                    }
+                    [...]
+                We just created a simple migration and defined the columns we want the customers table to have.
+                Eloquent provides methods that represent datatypes of our database table, so it is easy to decide what
+                we want each one to be.
+
+        6- *****Migrate the database
+             Now that we have defined our tables, let us migrate the database:
+
+                 $ php artisan migrate
+
+
