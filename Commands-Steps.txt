@@ -353,6 +353,7 @@ Set up the controllers
 
 
             [...]
+            ////////////////// Begin Customer Methods /////////////////
             public function showCustomerLoginForm()
             {
                 return view('auth.login', ['url' => 'customer']);
@@ -371,6 +372,8 @@ Set up the controllers
                 }
                 return back()->withInput($request->only('email', 'remember'));
             }
+            ////////////////// End Customer Methods /////////////////
+
             [...]
         And our login is set. Hurray!!!
     ---------------------------------------------

@@ -12,8 +12,10 @@
   <component name="ChangeListManager">
     <list default="true" id="f79b293c-8333-4522-a6da-9d58f01106b1" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Commands-Steps.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Commands-Steps.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Commands-Syeps.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Commands-Syeps.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/seeds/DatabaseSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeds/DatabaseSeeder.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Auth/LoginController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Auth/LoginController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Auth/RegisterController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Auth/RegisterController.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -287,7 +289,14 @@
       <option name="project" value="LOCAL" />
       <updated>1598194858242</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="#10 Create Seeds for Customer , and Admins&#10;    Database: Seeding ( Steps: 1 , 2 , 3 )">
+      <created>1598196420897</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1598196420897</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -321,13 +330,18 @@
     <MESSAGE value="#7 Set up the models ( Steps: 1- Admin model, 2- Customers model )" />
     <MESSAGE value="#8 Edit user_models in config/laratrust.php" />
     <MESSAGE value="#9 Define the guards ( Admin , customer , web , api)" />
-    <option name="LAST_COMMIT_MESSAGE" value="#9 Define the guards ( Admin , customer , web , api)" />
+    <MESSAGE value="#10 Create Seeds for Customer , and Admins&#10;    Database: Seeding ( Steps: 1 , 2 , 3 )" />
+    <option name="LAST_COMMIT_MESSAGE" value="#10 Create Seeds for Customer , and Admins&#10;    Database: Seeding ( Steps: 1 , 2 , 3 )" />
   </component>
   <component name="WindowStateProjectService">
     <state x="440" y="70" key="RollbackChangesDialog" timestamp="1598190647223">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
     <state x="440" y="70" key="RollbackChangesDialog/0.0.1366.738@0.0.1366.738" timestamp="1598190647223" />
+    <state x="274" y="100" key="Vcs.Push.Dialog.v2" timestamp="1598196429644">
+      <screen x="0" y="0" width="1366" height="738" />
+    </state>
+    <state x="274" y="100" key="Vcs.Push.Dialog.v2/0.0.1366.738@0.0.1366.738" timestamp="1598196429644" />
     <state x="339" y="165" key="run.anything.popup" timestamp="1598195596972">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
