@@ -1,4 +1,3 @@
-
 @extends('layouts.auth')
 
 @section('content')
@@ -9,10 +8,11 @@
                     <div class="card-header">Dashboard</div>
 
                     <div class="card-body">
-                        Hi there, regular user
+                        Hi boss!
                     </div>
                 </div>
             </div>
+
         </div>
     </div>
 @endsection

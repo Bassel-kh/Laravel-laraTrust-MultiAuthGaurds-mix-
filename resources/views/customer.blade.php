@@ -1,4 +1,3 @@
-
 @extends('layouts.auth')
 
 @section('content')
@@ -9,9 +8,10 @@
                     <div class="card-header">Dashboard</div>
 
                     <div class="card-body">
-                        Hi there, regular user
+                        Hi there, awesome customer
                     </div>
                 </div>
+
             </div>
         </div>
     </div>
