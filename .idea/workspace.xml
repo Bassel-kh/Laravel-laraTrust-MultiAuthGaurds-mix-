@@ -12,10 +12,9 @@
   <component name="ChangeListManager">
     <list default="true" id="f79b293c-8333-4522-a6da-9d58f01106b1" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Commands-Steps.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Commands-Steps.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Commands-Syeps.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Commands-Syeps.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Auth/LoginController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Auth/LoginController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Auth/RegisterController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Auth/RegisterController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/auth/login.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/auth/login.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/auth/register.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/auth/register.blade.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -296,7 +295,14 @@
       <option name="project" value="LOCAL" />
       <updated>1598196420897</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="#11 Set up the controllers ( Steps: 1- Modify LoginController , 2- Modify RegisterController )">
+      <created>1598266532546</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1598266532546</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -331,7 +337,8 @@
     <MESSAGE value="#8 Edit user_models in config/laratrust.php" />
     <MESSAGE value="#9 Define the guards ( Admin , customer , web , api)" />
     <MESSAGE value="#10 Create Seeds for Customer , and Admins&#10;    Database: Seeding ( Steps: 1 , 2 , 3 )" />
-    <option name="LAST_COMMIT_MESSAGE" value="#10 Create Seeds for Customer , and Admins&#10;    Database: Seeding ( Steps: 1 , 2 , 3 )" />
+    <MESSAGE value="#11 Set up the controllers ( Steps: 1- Modify LoginController , 2- Modify RegisterController )" />
+    <option name="LAST_COMMIT_MESSAGE" value="#11 Set up the controllers ( Steps: 1- Modify LoginController , 2- Modify RegisterController )" />
   </component>
   <component name="WindowStateProjectService">
     <state x="440" y="70" key="RollbackChangesDialog" timestamp="1598190647223">

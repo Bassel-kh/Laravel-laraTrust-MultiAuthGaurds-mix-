@@ -699,8 +699,11 @@ Set up the controllers
          }
 
     [Note]:
+           {
+            The attempt method will return true if authentication was successful. Otherwise, false will be returned
             The { intended } method on the redirector will redirect the user to the URL they were attempting to access before being intercepted by the authentication middleware.
             A fallback URI may be given to this method in case the intended destination is not available.
+            }
     1- ***** Modify LoginController *****
 
              Open the LoginController in app/Http/Controllers/Auth and edit as follows:
@@ -909,3 +912,69 @@ Set up the controllers
                          }
                          [...]
                      And registration is complete.
+
+#12 --------------------------
+Set up authentication pages
+    We will use Laravel’s auth scaffolding to generate pages and controllers for our authentication system. Run the following command to generate the authentication pages:
+
+            For Laravel < 6
+                $ php artisan make:auth
+
+            For Laravel >=6
+                $ composer require laravel/ui
+                $ php artisan ui vue --auth or react or bootstrap
+                $ php artisan migrate
+
+    This will generate view files in resources/views/auth along with routes to handle basic authentication for our application. Is that cool or what?
+
+    Open the login.blade.php file and edit as follows:
+
+        // resources/views/auth/login.blade.php
+            [...]
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-md-8">
+                        <div class="card">
+                            <div class="card-header"> {{ isset($url) ? ucwords($url) : ""}} {{ __('Login') }}</div>
+
+                            <div class="card-body">
+                                @isset($url)
+                                <form method="POST" action='{{ url("login/$url") }}' aria-label="{{ __('Login') }}">
+                                @else
+                                <form method="POST" action="{{ route('login') }}" aria-label="{{ __('Login') }}">
+                                @endisset
+                                    @csrf
+                [...]
+            </div>
+
+    *************************************
+
+        We are checking if we passed a url parameter to the page when we called it.
+        If we did, we modify the forms action to use the url parameter. We also modified the header of the form so that it
+        shows the type of user based on their login parameter.
+
+        Open the register.blade.php file and edit as follows:
+
+            // resources/views/auth/register.blade.php
+
+            [...]
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-md-8">
+                        <div class="card">
+                            <div class="card-header"> {{ isset($url) ? ucwords($url) : ""}} {{ __('Register') }}</div>
+
+                            <div class="card-body">
+                                @isset($url)
+                                <form method="POST" action='{{ url("register/$url") }}' aria-label="{{ __('Register') }}">
+                                @else
+                                <form method="POST" action="{{ route('register') }}" aria-label="{{ __('Register') }}">
+                                @endisset
+                                    @csrf
+                [...]
+            </div>
+        We replicated what we did for login page here
+
+
+
+
