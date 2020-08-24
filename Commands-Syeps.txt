@@ -1163,3 +1163,57 @@ Set up the routes
         Route::view('/home', 'home')->middleware('auth');
         Route::view('/admin', 'admin');
         Route::view('/customer', 'customer')->middleware('auth:customer');
+
+#15--------------------------
+Modify how our users are redirected if authenticated
+    -----------------------------------------------------------------------------
+    [ Note ] :
+        {
+               Determining If The Current User Is Authenticated
+               To determine if the user is already logged into your application, you may use the check method on the Auth facade, which will return true if the user is authenticated:
+
+               use Illuminate\Support\Facades\Auth;
+
+               if (Auth::check()) {
+                   // The user is logged in...
+               }
+         }
+    -----------------------------------------------------------------------------
+    It is important you modify how users are redirected when they are authenticated.
+    Laravel by default redirects all authenticated users to /home.
+    We will get the error below if we do not modify the redirection.
+
+    So, to solve that, open the app/Http/Controllers/Middleware/RedirectIfAuthenticated.php
+    file and replace with this:
+
+        // app/Http/Controllers/Middleware/RedirectIfAuthenticated.php
+
+            <?php
+
+            namespace App\Http\Middleware;
+
+            use Closure;
+            use Illuminate\Support\Facades\Auth;
+
+            class RedirectIfAuthenticated
+            {
+                public function handle($request, Closure $next, $guard = null)
+                {
+                    if ($guard == "admin" && Auth::guard($guard)->check()) {
+                        return redirect('/admin');
+                    }
+                    if ($guard == "customer" && Auth::guard($guard)->check()) {
+                        return redirect('/customer');
+                    }
+                    if (Auth::guard($guard)->check()) {
+                        return redirect('/home');
+                    }
+
+                    return $next($request);
+                }
+            }
+
+            The RedirectIfAuthenticated middleware receives the auth guard as a parameter.
+            This middleware is triggered when we try to visit any page meant for authenticated users.
+            We can then determine the type of authentication the user has and redirect them accordingly.
+
