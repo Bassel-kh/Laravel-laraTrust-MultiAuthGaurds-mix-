@@ -1136,3 +1136,30 @@ Create the pages authenticated users will access
                    </div>
                </div>
                @endsection
+
+#14 -------------------------
+Set up the routes
+
+    Our application is almost ready. Let us define the routes to access all the pages we have created so far.
+    Open the routes/web.php file and replace with the following:
+
+    // routes/web.php
+
+
+        <?php
+        Route::view('/', 'welcome');
+        Auth::routes();
+
+        Route::get('/login/admin', 'Auth\LoginController@showAdminLoginForm');
+        Route::get('/login/customer', 'Auth\LoginController@showCustomerLoginForm');
+        Route::get('/register/admin', 'Auth\RegisterController@showAdminRegisterForm');
+        Route::get('/register/customer', 'Auth\RegisterController@showCustomerRegisterForm');
+
+        Route::post('/login/admin', 'Auth\LoginController@adminLogin');
+        Route::post('/login/customer', 'Auth\LoginController@CustomerLogin');
+        Route::post('/register/admin', 'Auth\RegisterController@createAdmin');
+        Route::post('/register/customer', 'Auth\RegisterController@createCustomer');
+
+        Route::view('/home', 'home')->middleware('auth');
+        Route::view('/admin', 'admin');
+        Route::view('/customer', 'customer')->middleware('auth:customer');
