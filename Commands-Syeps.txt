@@ -1217,3 +1217,8 @@ Modify how our users are redirected if authenticated
             This middleware is triggered when we try to visit any page meant for authenticated users.
             We can then determine the type of authentication the user has and redirect them accordingly.
 
+#16 -------------------------------
+Edit Welcome view
+    Add: To display Home Link after login
+        @if(Auth::guard('customer')->check() || Auth::guard('admin')->check() || Auth::guard('web')->check())
+

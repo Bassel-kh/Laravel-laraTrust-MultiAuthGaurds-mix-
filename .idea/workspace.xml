@@ -13,7 +13,8 @@
     <list default="true" id="f79b293c-8333-4522-a6da-9d58f01106b1" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Commands-Syeps.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Commands-Syeps.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Middleware/RedirectIfAuthenticated.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Middleware/RedirectIfAuthenticated.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/welcome.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/welcome.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -322,7 +323,14 @@
       <option name="project" value="LOCAL" />
       <updated>1598293648987</updated>
     </task>
-    <option name="localTasksCounter" value="22" />
+    <task id="LOCAL-00022" summary="#15 Modify how our users are redirected if authenticated">
+      <created>1598294373375</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1598294373375</updated>
+    </task>
+    <option name="localTasksCounter" value="23" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -361,7 +369,8 @@
     <MESSAGE value="#12 Set up authentication pages" />
     <MESSAGE value="#13 Create the pages authenticated users will access" />
     <MESSAGE value="#14 Set up the routes" />
-    <option name="LAST_COMMIT_MESSAGE" value="#14 Set up the routes" />
+    <MESSAGE value="#15 Modify how our users are redirected if authenticated" />
+    <option name="LAST_COMMIT_MESSAGE" value="#15 Modify how our users are redirected if authenticated" />
   </component>
   <component name="WindowStateProjectService">
     <state x="440" y="70" key="RollbackChangesDialog" timestamp="1598190647223">
