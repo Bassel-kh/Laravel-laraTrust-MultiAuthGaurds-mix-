@@ -1222,3 +1222,64 @@ Edit Welcome view
     Add: To display Home Link after login
         @if(Auth::guard('customer')->check() || Auth::guard('admin')->check() || Auth::guard('web')->check())
 
+#17--------------------------
+Modify authentication exception handler
+
+    There is a little annoying thing that would happen when a user is redirected.
+    You would expect that if a user tries to access say /customer but is not authenticated, t
+    hat the user is redirected to /login/customer, yes? Well, they don’t. They get redirected
+    to /login which is not what we want.
+
+    To ensure that when a user tries to visit /customer they are redirected to /login/customer or
+    the same for /admin, we have to modify the exception handler. Open the handler file in app/Exceptions
+    and add the following:
+
+        // app/Exceptions/Handler.php
+
+            <?php
+
+            namespace App\Exceptions;
+
+            use Exception;
+            use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+            [...]
+            use Illuminate\Auth\AuthenticationException;
+            use Auth;
+            [...]
+            class Handler extends ExceptionHandler
+            {
+               [...]
+                protected function unauthenticated($request, AuthenticationException $exception)
+                {
+                    if ($request->expectsJson()) {
+                        return response()->json(['error' => 'Unauthenticated.'], 401);
+                    }
+                    if ($request->is('admin') || $request->is('admin/*')) {
+                        return redirect()->guest('/login/admin');
+                    }
+                    if ($request->is('customer') || $request->is('customer/*')) {
+                        return redirect()->guest('/login/customer');
+                    }
+                    return redirect()->guest(route('login'));
+                }
+            }
+
+            The unauthenticated method we just added resolves this issue we have. It receives an AuthenticationExpection exception by
+
+            default which carries that guard information. Sadly, we cannot access that, because it is protected
+
+            (hopefully, Laravel 5.7 will come with a way to access it).
+
+            Our workaround is to use request→is(). This checks the URL we are trying to access. It can also check the URL pattern
+
+            if we do not have an absolute URL or if we have a route group.
+
+            In our case, we first check if we received a JSON request and handle the exception separately.
+
+            Then we check if we are trying to access /admin or any URL preceded by admin. We redirect the user to
+
+            the appropriate login page. We also do the check for customer as well.
+
+            This is a good workaround for us, but it means we must know the absolute URL we want to access,
+
+            or at least have the same prefix for all routes that will be protected by our guard.

@@ -13,8 +13,7 @@
     <list default="true" id="f79b293c-8333-4522-a6da-9d58f01106b1" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Commands-Syeps.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Commands-Syeps.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/welcome.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/welcome.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Exceptions/Handler.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Exceptions/Handler.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -373,10 +372,10 @@
     <option name="LAST_COMMIT_MESSAGE" value="#15 Modify how our users are redirected if authenticated" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="440" y="70" key="RollbackChangesDialog" timestamp="1598190647223">
+    <state x="440" y="70" key="RollbackChangesDialog" timestamp="1598342823715">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
-    <state x="440" y="70" key="RollbackChangesDialog/0.0.1366.738@0.0.1366.738" timestamp="1598190647223" />
+    <state x="440" y="70" key="RollbackChangesDialog/0.0.1366.738@0.0.1366.738" timestamp="1598342823715" />
     <state x="274" y="100" key="Vcs.Push.Dialog.v2" timestamp="1598196429644">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
