@@ -1287,30 +1287,41 @@ Modify authentication exception handler
 #18 -----------------------
 Laratrust in Blade
 
-    @role('admin')
-        <p>This is visible to users with the admin role. Gets translated to
-        \Laratrust::hasRole('admin')</p>
-    @endrole
+        @role('admin')
+            <p>This is visible to users with the admin role. Gets translated to
+            \Laratrust::hasRole('admin')</p>
+        @endrole
 
-    @permission('manage-admins')
-        <p>This is visible to users with the given permissions. Gets translated to
-        \Laratrust::isAbleTo('manage-admins'). The @can directive is already taken by core
-        laravel authorization package, hence the @permission directive instead.</p>
-    @endpermission
+        @permission('manage-admins')
+            <p>This is visible to users with the given permissions. Gets translated to
+            \Laratrust::isAbleTo('manage-admins'). The @can directive is already taken by core
+            laravel authorization package, hence the @permission directive instead.</p>
+        @endpermission
 
-    @ability('admin,owner', 'create-post,edit-user')
-        <p>This is visible to users with the given abilities. Gets translated to
-        \Laratrust::ability('admin,owner', 'create-post,edit-user')</p>
-    @endability
+        @ability('admin,owner', 'create-post,edit-user')
+            <p>This is visible to users with the given abilities. Gets translated to
+            \Laratrust::ability('admin,owner', 'create-post,edit-user')</p>
+        @endability
 
-    @isAbleToAndOwns('edit-post', $post)
-        <p>This is visible if the user has the permission and owns the object. Gets translated to
-        \Laratrust::isAbleToAndOwns('edit-post', $post)</p>
-    @endOwns
+        @isAbleToAndOwns('edit-post', $post)
+            <p>This is visible if the user has the permission and owns the object. Gets translated to
+            \Laratrust::isAbleToAndOwns('edit-post', $post)</p>
+        @endOwns
 
-    @hasRoleAndOwns('admin', $post)
-        <p>This is visible if the user has the role and owns the object. Gets translated to
-        \Laratrust::hasRoleAndOwns('admin', $post)</p>
-    @endOwns
+        @hasRoleAndOwns('admin', $post)
+            <p>This is visible if the user has the role and owns the object. Gets translated to
+            \Laratrust::hasRoleAndOwns('admin', $post)</p>
+        @endOwns
 
-1- add Controller and view LoginTest
+    1- add Controller and view LoginTest
+
+#19 ---------------------------------
+Add MailSetting to .env
+    MAIL_DRIVER=smtp
+    MAIL_HOST=smtp.mailtrap.io
+    MAIL_PORT=2525
+    MAIL_USERNAME=6cce************
+    MAIL_PASSWORD=38dc8*********
+    MAIL_ENCRYPTION=null
+    MAIL_FROM_ADDRESS=***********@gmail.com
+    MAIL_FROM_NAME="${APP_NAME}"
