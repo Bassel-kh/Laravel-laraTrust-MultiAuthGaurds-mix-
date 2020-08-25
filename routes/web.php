@@ -40,3 +40,7 @@ Route::post('/register/customer', 'Auth\RegisterController@createCustomer');
 Route::view('/home', 'home')->middleware('auth');
 Route::view('/admin', 'admin')->middleware('auth:admin');
 Route::view('/customer', 'customer')->middleware('auth:customer');
+
+
+Route::get('/logintest', 'Auth\LoginTestController@showLoginForm');
+Route::post('/logintest', 'Auth\LoginTestController@Login')->name('login.test');

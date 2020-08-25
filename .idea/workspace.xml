@@ -10,11 +10,7 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f79b293c-8333-4522-a6da-9d58f01106b1" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Commands-Syeps.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Commands-Syeps.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Exceptions/Handler.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Exceptions/Handler.php" afterDir="false" />
-    </list>
+    <list default="true" id="f79b293c-8333-4522-a6da-9d58f01106b1" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -329,7 +325,21 @@
       <option name="project" value="LOCAL" />
       <updated>1598294373375</updated>
     </task>
-    <option name="localTasksCounter" value="23" />
+    <task id="LOCAL-00023" summary="#17 Modify authentication exception handler">
+      <created>1598343094204</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1598343094204</updated>
+    </task>
+    <task id="LOCAL-00024" summary="#18 Laratrust in Blade (Steps: 1- LoginTest view and controller)">
+      <created>1598356508836</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1598356508836</updated>
+    </task>
+    <option name="localTasksCounter" value="25" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -369,13 +379,19 @@
     <MESSAGE value="#13 Create the pages authenticated users will access" />
     <MESSAGE value="#14 Set up the routes" />
     <MESSAGE value="#15 Modify how our users are redirected if authenticated" />
-    <option name="LAST_COMMIT_MESSAGE" value="#15 Modify how our users are redirected if authenticated" />
+    <MESSAGE value="#17 Modify authentication exception handler" />
+    <MESSAGE value="#18 Laratrust in Blade (Steps: 1- LoginTest view and controller)" />
+    <option name="LAST_COMMIT_MESSAGE" value="#18 Laratrust in Blade (Steps: 1- LoginTest view and controller)" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="440" y="70" key="RollbackChangesDialog" timestamp="1598342823715">
+    <state x="412" y="122" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1598348610707">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
-    <state x="440" y="70" key="RollbackChangesDialog/0.0.1366.738@0.0.1366.738" timestamp="1598342823715" />
+    <state x="412" y="122" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1366.738@0.0.1366.738" timestamp="1598348610707" />
+    <state x="440" y="70" key="RollbackChangesDialog" timestamp="1598356296009">
+      <screen x="0" y="0" width="1366" height="738" />
+    </state>
+    <state x="440" y="70" key="RollbackChangesDialog/0.0.1366.738@0.0.1366.738" timestamp="1598356296009" />
     <state x="274" y="100" key="Vcs.Push.Dialog.v2" timestamp="1598196429644">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
