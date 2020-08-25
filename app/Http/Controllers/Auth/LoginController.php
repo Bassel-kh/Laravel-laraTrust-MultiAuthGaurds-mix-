@@ -64,8 +64,10 @@ class LoginController extends Controller
         if (Auth::guard('admin')->attempt(['email' => $request->email, 'password' => $request->password], $request->get('remember'))) {
 
             return redirect()->intended('/admin');
+        }else {
+            $errors = ['email' => __('auth.failed')];
+            return back()->withInput($request->only('email', 'remember'))->withErrors($errors);
         }
-        return back()->withInput($request->only('email', 'remember'));
     }
 
     ////////////////// End Admin Methods ///////////////////
@@ -87,8 +89,10 @@ class LoginController extends Controller
         if (Auth::guard('customer')->attempt(['email' => $request->email, 'password' => $request->password], $request->get('remember'))) {
 
             return redirect()->intended('/customer');
+        }else {
+            $errors = ['email' => __('auth.failed')];
+            return back()->withInput($request->only('email', 'remember'))->withErrors($errors);
         }
-        return back()->withInput($request->only('email', 'remember'));
     }
     ////////////////// End Customer Methods /////////////////
     /// ###############################################  ////

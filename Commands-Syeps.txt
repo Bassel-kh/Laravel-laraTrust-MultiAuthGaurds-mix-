@@ -1325,3 +1325,8 @@ Add MailSetting to .env
     MAIL_ENCRYPTION=null
     MAIL_FROM_ADDRESS=***********@gmail.com
     MAIL_FROM_NAME="${APP_NAME}"
+
+#20 ---------------------------------
+Add Error-Login to controller login for methods( Customer , Admin )
+
+
