@@ -44,3 +44,36 @@ Route::view('/customer', 'customer')->middleware('auth:customer');
 
 Route::get('/logintest', 'Auth\LoginTestController@showLoginForm');
 Route::post('/logintest', 'Auth\LoginTestController@Login')->name('login.test');
+
+////////////////////////////// Begin Admin Route ////////////////////////////
+
+    Route::prefix('/admin')->name('admin.')->namespace('Auth\Admin')->group(function(){
+        //All the admin routes will be defined here...
+
+        //Forgot Password Routes
+        Route::get('/password/reset','ForgotPasswordController@showLinkRequestForm')->name('password.request');
+        Route::post('/password/email','ForgotPasswordController@sendResetLinkEmail')->name('password.email');
+
+        //Reset Password Routes
+        Route::get('/password/reset/{token}','ResetPasswordController@showResetForm')->name('password.reset');
+        Route::post('/password/reset','ResetPasswordController@reset')->name('password.update');
+    });
+
+////////////////////////////// End Admin Route ////////////////////////////
+#######################################################################
+
+////////////////////////////// Begin Customer Route ////////////////////////////
+
+
+        Route::prefix('/customer')->name('customer.')->namespace('Auth\Customer')->group(function(){
+            //All the admin routes will be defined here...
+            //Forgot Password Routes
+            Route::get('/password/reset','ForgotPasswordController@showLinkRequestForm')->name('password.request');
+            Route::post('/password/email','ForgotPasswordController@sendResetLinkEmail')->name('password.email');
+
+            //Reset Password Routes
+            Route::get('/password/reset/{token}','ResetPasswordController@showResetForm')->name('password.reset');
+            Route::post('/password/reset','ResetPasswordController@reset')->name('password.update');
+        });
+////////////////////////////// End Customer Route ////////////////////////////
+##############################################################################

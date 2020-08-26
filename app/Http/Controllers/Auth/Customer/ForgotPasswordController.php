@@ -1,9 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\Auth;
+namespace App\Http\Controllers\Auth\Customer;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\SendsPasswordResetEmails;
+use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Password;
 
 class ForgotPasswordController extends Controller
 {
@@ -17,6 +19,16 @@ class ForgotPasswordController extends Controller
         $this->middleware('guest:admin');
         $this->middleware('guest:customer');
     }
+    /**
+     * Show the reset email form.
+     *
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|Response|\Illuminate\View\View
+     */
+    public function showLinkRequestForm(){
+        return view('auth.passwords.email',[
+            'url' => 'customer',
+        ]);
+    }
     /*
     |--------------------------------------------------------------------------
     | Password Reset Controller
@@ -29,4 +41,8 @@ class ForgotPasswordController extends Controller
     */
 
     use SendsPasswordResetEmails;
+    public function broker()
+    {
+        return Password::broker('customers');
+    }
 }

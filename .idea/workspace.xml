@@ -10,7 +10,23 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f79b293c-8333-4522-a6da-9d58f01106b1" name="Default Changelist" comment="" />
+    <list default="true" id="f79b293c-8333-4522-a6da-9d58f01106b1" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/app/Http/Controllers/Auth/Admin/ForgotPasswordController.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Http/Controllers/Auth/Admin/ResetPasswordController.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Http/Controllers/Auth/Customer/ForgotPasswordController.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Http/Controllers/Auth/Customer/ResetPasswordController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Commands-Syeps.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Commands-Syeps.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Admin.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Admin.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Customer.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Customer.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Auth/ForgotPasswordController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Auth/ForgotPasswordController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Auth/ResetPasswordController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Auth/ResetPasswordController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/auth.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/auth.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/auth/login.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/auth/login.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/auth/passwords/email.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/auth/passwords/email.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/auth/passwords/reset.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/auth/passwords/reset.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -141,7 +157,7 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/resources/views/User" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/app/Http/Controllers/Auth/Customer" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -152,6 +168,8 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\wamp64\www\Laravel-laraTrust-MultiAuthGaurds(mix)\app\Http\Controllers\Auth\Customer" />
+      <recent name="D:\wamp64\www\Laravel-laraTrust-MultiAuthGaurds(mix)\app\Http\Controllers\Auth\Admin" />
       <recent name="D:\wamp64\www\Laravel-laraTrust\resources\views\User" />
     </key>
   </component>
@@ -339,7 +357,14 @@
       <option name="project" value="LOCAL" />
       <updated>1598356508836</updated>
     </task>
-    <option name="localTasksCounter" value="25" />
+    <task id="LOCAL-00025" summary="#20 Add Error-Login to controller login for methods( Customer , Admin )">
+      <created>1598365135541</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1598365135541</updated>
+    </task>
+    <option name="localTasksCounter" value="26" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -381,17 +406,22 @@
     <MESSAGE value="#15 Modify how our users are redirected if authenticated" />
     <MESSAGE value="#17 Modify authentication exception handler" />
     <MESSAGE value="#18 Laratrust in Blade (Steps: 1- LoginTest view and controller)" />
-    <option name="LAST_COMMIT_MESSAGE" value="#18 Laratrust in Blade (Steps: 1- LoginTest view and controller)" />
+    <MESSAGE value="#20 Add Error-Login to controller login for methods( Customer , Admin )" />
+    <option name="LAST_COMMIT_MESSAGE" value="#20 Add Error-Login to controller login for methods( Customer , Admin )" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="412" y="122" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1598348610707">
+    <state x="418" y="169" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1598370743463">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
-    <state x="412" y="122" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1366.738@0.0.1366.738" timestamp="1598348610707" />
-    <state x="440" y="70" key="RollbackChangesDialog" timestamp="1598356296009">
+    <state x="418" y="169" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1366.738@0.0.1366.738" timestamp="1598370743463" />
+    <state x="412" y="122" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1598371404601">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
-    <state x="440" y="70" key="RollbackChangesDialog/0.0.1366.738@0.0.1366.738" timestamp="1598356296009" />
+    <state x="412" y="122" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1366.738@0.0.1366.738" timestamp="1598371404601" />
+    <state x="440" y="70" key="RollbackChangesDialog" timestamp="1598365119888">
+      <screen x="0" y="0" width="1366" height="738" />
+    </state>
+    <state x="440" y="70" key="RollbackChangesDialog/0.0.1366.738@0.0.1366.738" timestamp="1598365119888" />
     <state x="274" y="100" key="Vcs.Push.Dialog.v2" timestamp="1598196429644">
       <screen x="0" y="0" width="1366" height="738" />
     </state>

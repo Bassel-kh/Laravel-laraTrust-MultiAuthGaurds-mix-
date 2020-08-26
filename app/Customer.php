@@ -7,6 +7,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 //////////////////////////
 use Laratrust\Traits\LaratrustUserTrait; // To Use LaraTrust
 /////////////////////////
+use App\Notifications\CustomizeResetPassword as ResetPasswordNotification;
 
 class Customer extends Authenticatable
 {
@@ -23,4 +24,16 @@ class Customer extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+
+
+
+    public function sendPasswordResetNotification($token)
+    {
+        $notification = new ResetPasswordNotification("customer",$token);
+
+        $this->notify($notification);
+
+    }
+
 }

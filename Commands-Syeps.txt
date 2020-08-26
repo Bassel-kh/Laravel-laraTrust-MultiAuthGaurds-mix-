@@ -1329,4 +1329,270 @@ Add MailSetting to .env
 #20 ---------------------------------
 Add Error-Login to controller login for methods( Customer , Admin )
 
+#21 ---------------------------------
+Reset Password
+    [ Important Note ]:{
+    Add to All ForgotPasswordController
+     //     We set the middleware to restrict access to this controller or its methods.
+     //          It is important we defined all the different types of guests in the controller.
+     //              This way, if one type of user is logged in and  try to reset his password,
+     //                   it will redirect him to a predefined page.
+                       public function __construct()
+                       {
+                           $this->middleware('guest');
+                           $this->middleware('guest:admin');
+                           $this->middleware('guest:customer');
+                       }
+    }
 
+    1- Make Admin and Customer ForgotPasswordController and ResetPasswordController
+
+        *****Admin in { Auth/Admin }
+        *****Customer in { Auth/Customer }
+
+            1.0 Authentication Guard Customization
+                In your auth.php configuration file, you may configure multiple "guards",
+                which may be used to define authentication behavior for multiple user tables.
+                You can customize the included { ResetPasswordController } to use the guard of your choice
+                by overriding the guard method on the controller. This method should return a guard instance:
+
+                use Illuminate\Support\Facades\Auth;
+
+                /**
+                 * Get the guard to be used during password reset.
+                 *
+                 * @return \Illuminate\Contracts\Auth\StatefulGuard
+                 */
+                protected function guard()
+                {
+                    return Auth::guard('guard-name');
+                }
+
+                **** Admin
+
+            1.1 Password Broker Customization
+            In your config/auth.php configuration file, you may configure multiple password "brokers",
+                {
+                    'passwords' => [
+                            'users' => [
+                                'provider' => 'users',
+                                'table' => 'password_resets',
+                                'expire' => 60,
+                                'throttle' => 60,
+                            ],
+                            'customers' => [
+                                'provider' => 'customers',
+                                'table' => 'password_resets',
+                                'expire' => 60,
+                                'throttle' => 60,
+                            ],
+                            'admins' => [
+                                'provider' => 'admins',
+                                'table' => 'password_resets',
+                                'expire' => 60,
+                                'throttle' => 60,
+                            ],
+                        ],
+                }
+            which may be used to reset passwords on multiple user tables.
+            You can customize the included
+                - ForgotPasswordController and
+                - ResetPasswordController to
+            use the broker of your choice by overriding the broker method:
+                -------------- Begin -------------
+                use Illuminate\Support\Facades\Password;
+
+                /**
+                 * Get the broker to be used during password reset.
+                 *
+                 * @return PasswordBroker
+                 */
+                public function broker()
+                {
+                    return Password::broker('name');
+                }
+               -------------- End -------------
+
+                **** Admin (Forget and Reset Controllers )
+                    use Illuminate\Support\Facades\Password;
+                    public function broker()
+                                {
+                                    return Password::broker('admins');
+                                }
+
+                **** Customer (Forget and Reset Controllers )
+                    use Illuminate\Support\Facades\Password;
+                    public function broker()
+                                {
+                                    return Password::broker('customers');
+                                }
+
+
+    2- Define Routes
+              We will be using grouped routes so we don’t have to repeat certain things and we will store all
+              of our admin/customer controllers in a sub directory called Admin/Customer in Auth directory.
+
+               For example, all the routes will have admin like /admin/other/route so we can use prefix() method
+               and we are also using named routes so we need all our route to have “admin.” prefix when naming them.
+               Last thing will be the namespace Admin because laravel
+               uses psr-4 autoloading and all the classes need to have a namespace:
+
+               For Admin in web.php :
+                   Route::prefix('/admin')->name('admin.')->namespace('Auth/Admin')->group(function(){
+                     //All the admin routes will be defined here...
+
+                             //Forgot Password Routes
+                             Route::get('/password/reset','ForgotPasswordController@showLinkRequestForm')->name('password.request');
+                             Route::post('/password/email','ForgotPasswordController@sendResetLinkEmail')->name('password.email');
+
+                             //Reset Password Routes
+                             Route::get('/password/reset/{token}','ResetPasswordController@showResetForm')->name('password.reset');
+                             Route::post('/password/reset','ResetPasswordController@reset')->name('password.update');
+                   });
+
+               For Customer in web.php :
+                   Route::prefix('/customer')->name('customer.')->namespace('Auth/Customer')->group(function(){
+                     //All the admin routes will be defined here...
+                             //Forgot Password Routes
+                             Route::get('/password/reset','ForgotPasswordController@showLinkRequestForm')->name('password.request');
+                             Route::post('/password/email','ForgotPasswordController@sendResetLinkEmail')->name('password.email');
+
+                             //Reset Password Routes
+                             Route::get('/password/reset/{token}','ResetPasswordController@showResetForm')->name('password.reset');
+                             Route::post('/password/reset','ResetPasswordController@reset')->name('password.update');
+                   });
+
+    3- Add methods to Controllers Admin/Customer ( Forget /Reset )
+
+        3.1 - Add Method showLinkRequestForm to [ Forget Controllers ]:
+
+                  public function showLinkRequestForm(){
+                           return view('auth.passwords.email',[
+                               'url' => 'customer/admin',
+                           ]);
+
+        3.2 - Add to auth/passwords/email.blade.php
+                        <div class="card-header"> {{ isset($url) ? ucwords($url) : ""}} {{ __('Reset Password') }}</div>
+                            [ ... ]
+
+                                @isset($url)
+                                <form method="POST" action='{{ route("$url.password.email") }}'>
+                                @else
+                                <form method="POST" action="{{ route('password.email') }}">
+                                @endisset
+                                    @csrf
+                            [ ... ]
+
+        3.3 - Add Method showResetForm to [ Reset Controllers ] :
+                   use Auth;
+                   use Illuminate\Http\Request;
+
+                   [....]
+
+                   /**
+                    * Show the reset password form.
+                    *
+                    * @param  \Illuminate\Http\Request $request
+                    * @param  string|null  $token
+                    * @return \Illuminate\Http\Response
+                    */
+                   public function showResetForm(Request $request, $token = null){
+                       return view('auth.passwords.reset',[
+                           'url' => 'admin',
+                           'token' => $token,
+                       ]);
+                   }
+
+        3.4 - Add to auth/passwords/reset.blade.php
+
+            <div class="card-header">{{ isset($url) ? ucwords($url) : ""}} {{ __('Reset Password') }}</div>
+
+                            <div class="card-body">
+                                @isset($url)
+                                    <form method="POST" action='{{ route("$url.password.update") }}'>
+                                @else
+                                    <form method="POST" action="{{ route('password.update') }}">
+                                @endisset
+
+        3.5 - Edit auth/login.blade.php
+                 @if (Route::has('password.request'))
+                 @isset($url)
+                     <a class="btn btn-link" href="{{ route("$url.password.request") }}">
+                 @else
+                     <a class="btn btn-link" href="{{ route("password.request") }}">
+                 @endisset
+
+                     {{ __('Forgot Your Password?') }}
+                  </a>
+
+        3.6 - Reset Email Customization
+              You may easily modify the notification class used to send the password reset link to the user.
+              To get started, override the sendPasswordResetNotification method on your User model.
+              Within this method, you may send the notification using any notification class you choose.
+              The password reset $token is the first argument received by the method:
+
+              /**
+               * Send the password reset notification.
+               *
+               * @param  string  $token
+               * @return void
+               */
+              public function sendPasswordResetNotification($token)
+              {
+                  $this->notify(new ResetPasswordNotification($token));
+              }
+
+                ---
+                1- Step Creat Notification
+                    $ php artisan make:notification CustomizeResetPassword
+
+                2- in  App\Notifications\CustomizeResetPassword
+                    Add Methods :
+                                    public $token;
+                                    public $user_type;
+
+                                    public function __construct($user_type = "", $Token )
+                                    {
+                                        $this->token = $Token;
+                                        $this->user_type = $user_type;
+                                    }
+                                    ---------------------------------
+                                   public function toMail($notifiable)
+                                    {
+                                        $route_name = 'password.reset';
+                                        if($this->user_type !== "") {
+                                           $route_name = $this->user_type.'.password.reset';
+                                        }
+                                        return (new MailMessage)
+                                            ->subject('Your Reset Password Subject Here')
+                                            ->line('You are receiving this email because we received a password reset request for your account.')
+                                            ->action('Reset Password', url(route($route_name, [$this->token, 'email' => $notifiable->getEmailForPasswordReset()])))
+
+                                            ->line('If you did not request a password reset, no further action is required.');
+                                    }
+
+                                   ---------------------------------------------
+                                   Add to Admin Model:
+                                        use App\Notifications\CustomizeResetPassword as ResetPasswordNotification;
+
+                                                public function sendPasswordResetNotification($token)
+                                                {
+
+                                                    $notification = new ResetPasswordNotification("admin",$token);
+
+                                                    $this->notify($notification);
+                                                }
+
+                                   Add to Customer Model:
+                                        use App\Notifications\CustomizeResetPassword as ResetPasswordNotification;
+
+                                                public function sendPasswordResetNotification($token)
+                                                {
+
+                                                    $notification = new ResetPasswordNotification("customer",$token);
+
+                                                    $this->notify($notification);
+                                                }
+
+
+                3.7- add { 'email' => $request->email }  to showResetForm Method in ResetPasswordController(s) (Admin / Customer)
